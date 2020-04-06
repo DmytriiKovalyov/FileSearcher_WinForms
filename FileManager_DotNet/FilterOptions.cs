@@ -1,7 +1,6 @@
-﻿using System;
-
-namespace FileManager_DotNet
+﻿namespace FileManager_DotNet
 {
+    /*******************************************************************************/
     public static class FilterOptions
     {
         public static string FolderPath { get; set; }
@@ -17,7 +16,7 @@ namespace FileManager_DotNet
         /*******************************************************************************/
         public static void SetSearchedFileNames(bool check, string file_name)
         {
-            FileName = (check && file_name != string.Empty) ?
+            FileName = (!check && file_name != string.Empty) ?
                 "*" + file_name + "*" :
                 "";
         }
@@ -25,7 +24,7 @@ namespace FileManager_DotNet
         /*******************************************************************************/
         public static void SetSearchedFileExtensions(bool check, string file_type)
         {
-            FileExtension = (check && file_type != string.Empty) ?
+            FileExtension = (!check && file_type != string.Empty) ?
                 "*." + file_type.Trim(new char[] { ' ', '*', '.' }) :
                 "*";
         }
@@ -33,7 +32,7 @@ namespace FileManager_DotNet
         /*******************************************************************************/
         public static void SetSearchedFileSizes(bool check, string file1_size, string file2_size)
         {
-            if (check && file2_size != string.Empty)
+            if (!check && file2_size != string.Empty)
             {
                 long max_size;
 

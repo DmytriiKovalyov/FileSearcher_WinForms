@@ -30,13 +30,8 @@
         {
             this.choosePath_button = new System.Windows.Forms.Button();
             this.webBrowser = new System.Windows.Forms.WebBrowser();
-            this.listView = new System.Windows.Forms.ListView();
-            this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader4 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.filesFound_label = new System.Windows.Forms.Label();
-            this.showResult_button = new System.Windows.Forms.Button();
+            this.startSearch_button = new System.Windows.Forms.Button();
             this.goBack_button = new System.Windows.Forms.Button();
             this.goForward_button = new System.Windows.Forms.Button();
             this.dogGif_pictureBox = new System.Windows.Forms.PictureBox();
@@ -44,11 +39,9 @@
             this.fileName_groupBox = new System.Windows.Forms.GroupBox();
             this.enterName_textBox = new System.Windows.Forms.TextBox();
             this.enterName_label = new System.Windows.Forms.Label();
-            this.nameSearch_checkBox = new System.Windows.Forms.CheckBox();
             this.fileType_groupBox = new System.Windows.Forms.GroupBox();
             this.enterExtension_textBox = new System.Windows.Forms.TextBox();
             this.enterExtension_label = new System.Windows.Forms.Label();
-            this.typeSearch_checkBox = new System.Windows.Forms.CheckBox();
             this.fileSize_groupBox = new System.Windows.Forms.GroupBox();
             this.sizeKb_label2 = new System.Windows.Forms.Label();
             this.sizeKb_label1 = new System.Windows.Forms.Label();
@@ -57,12 +50,16 @@
             this.maxSize_textBox = new System.Windows.Forms.TextBox();
             this.minSize_textBox = new System.Windows.Forms.TextBox();
             this.enterSize_label = new System.Windows.Forms.Label();
-            this.sizeSearch_checkBox = new System.Windows.Forms.CheckBox();
             this.pickFilters_label = new System.Windows.Forms.Label();
             this.searchCounter_label = new System.Windows.Forms.Label();
-            this.startSearch_button = new System.Windows.Forms.Button();
             this.chosenFolder_label = new System.Windows.Forms.Label();
             this.chosenFolder_textBox = new System.Windows.Forms.TextBox();
+            this.searchDone_label = new System.Windows.Forms.Label();
+            this.listView = new FileManager_DotNet.ListViewNoFlickering();
+            this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader4 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             ((System.ComponentModel.ISupportInitialize)(this.dogGif_pictureBox)).BeginInit();
             this.searchGroupbox.SuspendLayout();
             this.fileName_groupBox.SuspendLayout();
@@ -90,47 +87,6 @@
             this.webBrowser.TabIndex = 1;
             this.webBrowser.Navigated += new System.Windows.Forms.WebBrowserNavigatedEventHandler(this.webBrowser_Navigated);
             // 
-            // listView
-            // 
-            this.listView.BackColor = System.Drawing.SystemColors.ControlLight;
-            this.listView.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.columnHeader1,
-            this.columnHeader2,
-            this.columnHeader3,
-            this.columnHeader4});
-            this.listView.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.listView.ForeColor = System.Drawing.Color.Black;
-            this.listView.FullRowSelect = true;
-            this.listView.GridLines = true;
-            this.listView.HideSelection = false;
-            this.listView.Location = new System.Drawing.Point(483, 42);
-            this.listView.Name = "listView";
-            this.listView.Size = new System.Drawing.Size(694, 550);
-            this.listView.TabIndex = 2;
-            this.listView.TileSize = new System.Drawing.Size(2, 2);
-            this.listView.UseCompatibleStateImageBehavior = false;
-            this.listView.View = System.Windows.Forms.View.Details;
-            // 
-            // columnHeader1
-            // 
-            this.columnHeader1.Text = "Имя";
-            this.columnHeader1.Width = 190;
-            // 
-            // columnHeader2
-            // 
-            this.columnHeader2.Text = "Папка";
-            this.columnHeader2.Width = 248;
-            // 
-            // columnHeader3
-            // 
-            this.columnHeader3.Text = "Тип";
-            this.columnHeader3.Width = 122;
-            // 
-            // columnHeader4
-            // 
-            this.columnHeader4.Text = "Размер";
-            this.columnHeader4.Width = 130;
-            // 
             // filesFound_label
             // 
             this.filesFound_label.AutoSize = true;
@@ -141,16 +97,16 @@
             this.filesFound_label.TabIndex = 3;
             this.filesFound_label.Text = "Найдено файлов:";
             // 
-            // showResult_button
+            // startSearch_button
             // 
-            this.showResult_button.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.showResult_button.Location = new System.Drawing.Point(823, 5);
-            this.showResult_button.Name = "showResult_button";
-            this.showResult_button.Size = new System.Drawing.Size(185, 31);
-            this.showResult_button.TabIndex = 4;
-            this.showResult_button.Text = "Показать результаты";
-            this.showResult_button.UseVisualStyleBackColor = true;
-            this.showResult_button.Click += new System.EventHandler(this.showResult_button_Click);
+            this.startSearch_button.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.startSearch_button.Location = new System.Drawing.Point(290, 5);
+            this.startSearch_button.Name = "startSearch_button";
+            this.startSearch_button.Size = new System.Drawing.Size(187, 31);
+            this.startSearch_button.TabIndex = 4;
+            this.startSearch_button.Text = "Начать поиск";
+            this.startSearch_button.UseVisualStyleBackColor = true;
+            this.startSearch_button.Click += new System.EventHandler(this.startSearch_button_Click);
             // 
             // goBack_button
             // 
@@ -200,7 +156,6 @@
             // 
             this.fileName_groupBox.Controls.Add(this.enterName_textBox);
             this.fileName_groupBox.Controls.Add(this.enterName_label);
-            this.fileName_groupBox.Controls.Add(this.nameSearch_checkBox);
             this.fileName_groupBox.Location = new System.Drawing.Point(7, 38);
             this.fileName_groupBox.Name = "fileName_groupBox";
             this.fileName_groupBox.Size = new System.Drawing.Size(173, 110);
@@ -209,39 +164,26 @@
             // 
             // enterName_textBox
             // 
-            this.enterName_textBox.Enabled = false;
-            this.enterName_textBox.Location = new System.Drawing.Point(10, 54);
+            this.enterName_textBox.Location = new System.Drawing.Point(10, 36);
             this.enterName_textBox.Multiline = true;
             this.enterName_textBox.Name = "enterName_textBox";
-            this.enterName_textBox.Size = new System.Drawing.Size(156, 50);
+            this.enterName_textBox.Size = new System.Drawing.Size(156, 68);
             this.enterName_textBox.TabIndex = 3;
             // 
             // enterName_label
             // 
             this.enterName_label.AutoSize = true;
-            this.enterName_label.Enabled = false;
-            this.enterName_label.Location = new System.Drawing.Point(5, 37);
+            this.enterName_label.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.enterName_label.Location = new System.Drawing.Point(7, 13);
             this.enterName_label.Name = "enterName_label";
-            this.enterName_label.Size = new System.Drawing.Size(167, 13);
+            this.enterName_label.Size = new System.Drawing.Size(162, 17);
             this.enterName_label.TabIndex = 2;
-            this.enterName_label.Text = "Введите имя файла (его часть):";
-            // 
-            // nameSearch_checkBox
-            // 
-            this.nameSearch_checkBox.AutoSize = true;
-            this.nameSearch_checkBox.Location = new System.Drawing.Point(29, 16);
-            this.nameSearch_checkBox.Name = "nameSearch_checkBox";
-            this.nameSearch_checkBox.Size = new System.Drawing.Size(108, 17);
-            this.nameSearch_checkBox.TabIndex = 1;
-            this.nameSearch_checkBox.Text = "Поиск по имени";
-            this.nameSearch_checkBox.UseVisualStyleBackColor = true;
-            this.nameSearch_checkBox.CheckedChanged += new System.EventHandler(this.nameSearch_checkBox_CheckedChanged);
+            this.enterName_label.Text = "Имя файла (его часть):";
             // 
             // fileType_groupBox
             // 
             this.fileType_groupBox.Controls.Add(this.enterExtension_textBox);
             this.fileType_groupBox.Controls.Add(this.enterExtension_label);
-            this.fileType_groupBox.Controls.Add(this.typeSearch_checkBox);
             this.fileType_groupBox.Location = new System.Drawing.Point(7, 149);
             this.fileType_groupBox.Name = "fileType_groupBox";
             this.fileType_groupBox.Size = new System.Drawing.Size(173, 110);
@@ -250,33 +192,21 @@
             // 
             // enterExtension_textBox
             // 
-            this.enterExtension_textBox.Enabled = false;
-            this.enterExtension_textBox.Location = new System.Drawing.Point(10, 54);
+            this.enterExtension_textBox.Location = new System.Drawing.Point(10, 36);
             this.enterExtension_textBox.Multiline = true;
             this.enterExtension_textBox.Name = "enterExtension_textBox";
-            this.enterExtension_textBox.Size = new System.Drawing.Size(156, 50);
+            this.enterExtension_textBox.Size = new System.Drawing.Size(156, 68);
             this.enterExtension_textBox.TabIndex = 4;
             // 
             // enterExtension_label
             // 
             this.enterExtension_label.AutoSize = true;
-            this.enterExtension_label.Enabled = false;
-            this.enterExtension_label.Location = new System.Drawing.Point(15, 37);
+            this.enterExtension_label.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.enterExtension_label.Location = new System.Drawing.Point(15, 13);
             this.enterExtension_label.Name = "enterExtension_label";
-            this.enterExtension_label.Size = new System.Drawing.Size(152, 13);
+            this.enterExtension_label.Size = new System.Drawing.Size(142, 17);
             this.enterExtension_label.TabIndex = 3;
-            this.enterExtension_label.Text = "Введите расширение файла:";
-            // 
-            // typeSearch_checkBox
-            // 
-            this.typeSearch_checkBox.AutoSize = true;
-            this.typeSearch_checkBox.Location = new System.Drawing.Point(19, 16);
-            this.typeSearch_checkBox.Name = "typeSearch_checkBox";
-            this.typeSearch_checkBox.Size = new System.Drawing.Size(140, 17);
-            this.typeSearch_checkBox.TabIndex = 2;
-            this.typeSearch_checkBox.Text = "Поиск по расширению";
-            this.typeSearch_checkBox.UseVisualStyleBackColor = true;
-            this.typeSearch_checkBox.CheckedChanged += new System.EventHandler(this.typeSearch_checkBox_CheckedChanged);
+            this.enterExtension_label.Text = "Расширение файла:";
             // 
             // fileSize_groupBox
             // 
@@ -287,7 +217,6 @@
             this.fileSize_groupBox.Controls.Add(this.maxSize_textBox);
             this.fileSize_groupBox.Controls.Add(this.minSize_textBox);
             this.fileSize_groupBox.Controls.Add(this.enterSize_label);
-            this.fileSize_groupBox.Controls.Add(this.sizeSearch_checkBox);
             this.fileSize_groupBox.Location = new System.Drawing.Point(7, 261);
             this.fileSize_groupBox.Name = "fileSize_groupBox";
             this.fileSize_groupBox.Size = new System.Drawing.Size(173, 110);
@@ -297,8 +226,7 @@
             // sizeKb_label2
             // 
             this.sizeKb_label2.AutoSize = true;
-            this.sizeKb_label2.Enabled = false;
-            this.sizeKb_label2.Location = new System.Drawing.Point(144, 87);
+            this.sizeKb_label2.Location = new System.Drawing.Point(145, 81);
             this.sizeKb_label2.Name = "sizeKb_label2";
             this.sizeKb_label2.Size = new System.Drawing.Size(21, 13);
             this.sizeKb_label2.TabIndex = 10;
@@ -307,8 +235,7 @@
             // sizeKb_label1
             // 
             this.sizeKb_label1.AutoSize = true;
-            this.sizeKb_label1.Enabled = false;
-            this.sizeKb_label1.Location = new System.Drawing.Point(145, 60);
+            this.sizeKb_label1.Location = new System.Drawing.Point(145, 51);
             this.sizeKb_label1.Name = "sizeKb_label1";
             this.sizeKb_label1.Size = new System.Drawing.Size(21, 13);
             this.sizeKb_label1.TabIndex = 9;
@@ -317,8 +244,7 @@
             // maxSize_label
             // 
             this.maxSize_label.AutoSize = true;
-            this.maxSize_label.Enabled = false;
-            this.maxSize_label.Location = new System.Drawing.Point(7, 87);
+            this.maxSize_label.Location = new System.Drawing.Point(7, 81);
             this.maxSize_label.Name = "maxSize_label";
             this.maxSize_label.Size = new System.Drawing.Size(25, 13);
             this.maxSize_label.TabIndex = 8;
@@ -327,8 +253,7 @@
             // minSize_label
             // 
             this.minSize_label.AutoSize = true;
-            this.minSize_label.Enabled = false;
-            this.minSize_label.Location = new System.Drawing.Point(7, 60);
+            this.minSize_label.Location = new System.Drawing.Point(6, 51);
             this.minSize_label.Name = "minSize_label";
             this.minSize_label.Size = new System.Drawing.Size(23, 13);
             this.minSize_label.TabIndex = 7;
@@ -336,40 +261,27 @@
             // 
             // maxSize_textBox
             // 
-            this.maxSize_textBox.Enabled = false;
-            this.maxSize_textBox.Location = new System.Drawing.Point(38, 84);
+            this.maxSize_textBox.Location = new System.Drawing.Point(38, 78);
             this.maxSize_textBox.Name = "maxSize_textBox";
-            this.maxSize_textBox.Size = new System.Drawing.Size(100, 20);
+            this.maxSize_textBox.Size = new System.Drawing.Size(103, 20);
             this.maxSize_textBox.TabIndex = 6;
             // 
             // minSize_textBox
             // 
-            this.minSize_textBox.Enabled = false;
-            this.minSize_textBox.Location = new System.Drawing.Point(39, 57);
+            this.minSize_textBox.Location = new System.Drawing.Point(39, 48);
             this.minSize_textBox.Name = "minSize_textBox";
-            this.minSize_textBox.Size = new System.Drawing.Size(100, 20);
+            this.minSize_textBox.Size = new System.Drawing.Size(102, 20);
             this.minSize_textBox.TabIndex = 5;
             // 
             // enterSize_label
             // 
             this.enterSize_label.AutoSize = true;
-            this.enterSize_label.Enabled = false;
-            this.enterSize_label.Location = new System.Drawing.Point(7, 36);
+            this.enterSize_label.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.enterSize_label.Location = new System.Drawing.Point(10, 13);
             this.enterSize_label.Name = "enterSize_label";
-            this.enterSize_label.Size = new System.Drawing.Size(159, 13);
+            this.enterSize_label.Size = new System.Drawing.Size(153, 17);
             this.enterSize_label.TabIndex = 4;
-            this.enterSize_label.Text = "Введите граничные значения:";
-            // 
-            // sizeSearch_checkBox
-            // 
-            this.sizeSearch_checkBox.AutoSize = true;
-            this.sizeSearch_checkBox.Location = new System.Drawing.Point(19, 16);
-            this.sizeSearch_checkBox.Name = "sizeSearch_checkBox";
-            this.sizeSearch_checkBox.Size = new System.Drawing.Size(119, 17);
-            this.sizeSearch_checkBox.TabIndex = 3;
-            this.sizeSearch_checkBox.Text = "Поиск по размеру";
-            this.sizeSearch_checkBox.UseVisualStyleBackColor = true;
-            this.sizeSearch_checkBox.CheckedChanged += new System.EventHandler(this.sizeSearch_checkBox_CheckedChanged);
+            this.enterSize_label.Text = "Граничные значения:";
             // 
             // pickFilters_label
             // 
@@ -391,17 +303,6 @@
             this.searchCounter_label.TabIndex = 9;
             this.searchCounter_label.Text = "0";
             // 
-            // startSearch_button
-            // 
-            this.startSearch_button.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.startSearch_button.Location = new System.Drawing.Point(291, 5);
-            this.startSearch_button.Name = "startSearch_button";
-            this.startSearch_button.Size = new System.Drawing.Size(186, 31);
-            this.startSearch_button.TabIndex = 10;
-            this.startSearch_button.Text = "Начать поиск";
-            this.startSearch_button.UseVisualStyleBackColor = true;
-            this.startSearch_button.Click += new System.EventHandler(this.startSearch_button_Click);
-            // 
             // chosenFolder_label
             // 
             this.chosenFolder_label.AutoSize = true;
@@ -422,20 +323,72 @@
             this.chosenFolder_textBox.Size = new System.Drawing.Size(270, 41);
             this.chosenFolder_textBox.TabIndex = 12;
             // 
+            // searchDone_label
+            // 
+            this.searchDone_label.AutoSize = true;
+            this.searchDone_label.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.searchDone_label.Location = new System.Drawing.Point(749, 12);
+            this.searchDone_label.Name = "searchDone_label";
+            this.searchDone_label.Size = new System.Drawing.Size(64, 17);
+            this.searchDone_label.TabIndex = 13;
+            this.searchDone_label.Text = "_______";
+            // 
+            // listView
+            // 
+            this.listView.BackColor = System.Drawing.SystemColors.ControlLight;
+            this.listView.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.columnHeader1,
+            this.columnHeader2,
+            this.columnHeader3,
+            this.columnHeader4});
+            this.listView.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.listView.ForeColor = System.Drawing.Color.Black;
+            this.listView.FullRowSelect = true;
+            this.listView.GridLines = true;
+            this.listView.HideSelection = false;
+            this.listView.Location = new System.Drawing.Point(483, 42);
+            this.listView.Name = "listView";
+            this.listView.Size = new System.Drawing.Size(694, 550);
+            this.listView.TabIndex = 2;
+            this.listView.TileSize = new System.Drawing.Size(2, 2);
+            this.listView.UseCompatibleStateImageBehavior = false;
+            this.listView.View = System.Windows.Forms.View.Details;
+            this.listView.ItemActivate += new System.EventHandler(this.listView_ItemActivate);
+            // 
+            // columnHeader1
+            // 
+            this.columnHeader1.Text = "Имя";
+            this.columnHeader1.Width = 190;
+            // 
+            // columnHeader2
+            // 
+            this.columnHeader2.Text = "Папка";
+            this.columnHeader2.Width = 248;
+            // 
+            // columnHeader3
+            // 
+            this.columnHeader3.Text = "Тип";
+            this.columnHeader3.Width = 122;
+            // 
+            // columnHeader4
+            // 
+            this.columnHeader4.Text = "Размер";
+            this.columnHeader4.Width = 130;
+            // 
             // FileSearchForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1189, 604);
+            this.Controls.Add(this.searchDone_label);
             this.Controls.Add(this.chosenFolder_textBox);
             this.Controls.Add(this.chosenFolder_label);
-            this.Controls.Add(this.startSearch_button);
             this.Controls.Add(this.searchCounter_label);
             this.Controls.Add(this.searchGroupbox);
             this.Controls.Add(this.dogGif_pictureBox);
             this.Controls.Add(this.goForward_button);
             this.Controls.Add(this.goBack_button);
-            this.Controls.Add(this.showResult_button);
+            this.Controls.Add(this.startSearch_button);
             this.Controls.Add(this.filesFound_label);
             this.Controls.Add(this.listView);
             this.Controls.Add(this.webBrowser);
@@ -460,9 +413,8 @@
 
         private System.Windows.Forms.Button choosePath_button;
         private System.Windows.Forms.WebBrowser webBrowser;
-        private System.Windows.Forms.ListView listView;
         private System.Windows.Forms.Label filesFound_label;
-        private System.Windows.Forms.Button showResult_button;
+        private System.Windows.Forms.Button startSearch_button;
         private System.Windows.Forms.ColumnHeader columnHeader1;
         private System.Windows.Forms.ColumnHeader columnHeader2;
         private System.Windows.Forms.ColumnHeader columnHeader3;
@@ -473,9 +425,6 @@
         private System.Windows.Forms.GroupBox searchGroupbox;
         private System.Windows.Forms.Label pickFilters_label;
         private System.Windows.Forms.Label searchCounter_label;
-        private System.Windows.Forms.CheckBox sizeSearch_checkBox;
-        private System.Windows.Forms.CheckBox typeSearch_checkBox;
-        private System.Windows.Forms.CheckBox nameSearch_checkBox;
         private System.Windows.Forms.GroupBox fileName_groupBox;
         private System.Windows.Forms.GroupBox fileType_groupBox;
         private System.Windows.Forms.GroupBox fileSize_groupBox;
@@ -490,9 +439,10 @@
         private System.Windows.Forms.Label minSize_label;
         private System.Windows.Forms.TextBox maxSize_textBox;
         private System.Windows.Forms.TextBox minSize_textBox;
-        private System.Windows.Forms.Button startSearch_button;
         private System.Windows.Forms.Label chosenFolder_label;
         private System.Windows.Forms.TextBox chosenFolder_textBox;
+        private ListViewNoFlickering listView;
+        private System.Windows.Forms.Label searchDone_label;
     }
 }
 

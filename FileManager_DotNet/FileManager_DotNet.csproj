@@ -47,7 +47,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="FileSearcherAsync.cs" />
+    <Compile Include="FIleSearcherIEnumerable.cs" />
     <Compile Include="FilterOptions.cs" />
+    <Compile Include="ListViewNoFlickering.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="ListViewSorter.cs" />
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>

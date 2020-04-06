@@ -1,49 +1,44 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.ComponentModel;
-using System.Data;
 using System.Diagnostics;
-using System.Drawing;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Text.RegularExpressions;
-using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace FileManager_DotNet
 {
+    /*******************************************************************************/
     public partial class FileSearchForm : Form
     {
+        TaskScheduler uiScheduler;
+        FileSearcherIEnumerable fileSearcherIEnumerable;
+
         /*******************************************************************************/
         public FileSearchForm()
         {
             InitializeComponent();
+
+            uiScheduler = TaskScheduler.FromCurrentSynchronizationContext();
+            fileSearcherIEnumerable = new FileSearcherIEnumerable(uiScheduler);
 
             webBrowser.Url = new Uri(@"C:/");
 
             listView.ColumnClick += new ColumnClickEventHandler(ColumnClick);
         }
 
-
         /*******************************************************************************/
         private void choosePath_button_Click(object sender, EventArgs e)
         {
-            using (FolderBrowserDialog folderBrowserDialog = new FolderBrowserDialog() { Description = "Выберите путь..." })
+            FolderBrowserDialog folderBrowserDialog = new FolderBrowserDialog() { Description = "Выберите путь..." };
+
+            if (folderBrowserDialog.ShowDialog() == DialogResult.OK)
             {
-                if (folderBrowserDialog.ShowDialog() == DialogResult.OK)
-                {
-                    FilterOptions.FolderPath = folderBrowserDialog.SelectedPath;
+                FilterOptions.FolderPath = folderBrowserDialog.SelectedPath;
 
-                    webBrowser.Url = new Uri(FilterOptions.FolderPath);
+                webBrowser.Url = new Uri(FilterOptions.FolderPath);
 
-                    chosenFolder_textBox.Text = folderBrowserDialog.SelectedPath;
-                }
+                chosenFolder_textBox.Text = folderBrowserDialog.SelectedPath;
             }
         }
-
 
         /*******************************************************************************/
         private void webBrowser_Navigated(object sender, WebBrowserNavigatedEventArgs e)
@@ -53,39 +48,22 @@ namespace FileManager_DotNet
             FilterOptions.FolderPath = chosenFolder_textBox.Text;
         }
 
-
-        /*******************************************************************************/
-        private void startSearch_button_Click(object sender, EventArgs e)
-        {
-            listView.Items.Clear();
-
-            FileSearcherAsync.ClearFoundFilesList();
-
-            CollectSearchedData();
-
-            SwitchFiltersToDefault();
-
-            FileSearcherAsync.StartFileSearchAsync();
-        }
-
-
         /*******************************************************************************/
         public void CollectSearchedData()
         {
             FilterOptions.SetSearchedFileNames(
-                nameSearch_checkBox.Checked,
+                string.IsNullOrWhiteSpace(enterName_textBox.Text),
                 enterName_textBox.Text);
 
             FilterOptions.SetSearchedFileExtensions(
-                typeSearch_checkBox.Checked,
+                string.IsNullOrWhiteSpace(enterExtension_textBox.Text),
                 enterExtension_textBox.Text);
 
             FilterOptions.SetSearchedFileSizes(
-                sizeSearch_checkBox.Checked,
+                string.IsNullOrWhiteSpace(maxSize_textBox.Text),
                 minSize_textBox.Text,
                 maxSize_textBox.Text);
         }
-
 
         /*******************************************************************************/
         private void ColumnClick(object o, ColumnClickEventArgs e)
@@ -99,40 +77,36 @@ namespace FileManager_DotNet
             listView.Sort();
         }
 
-
         /*******************************************************************************/
-        private void FillingListView()
+        private void startSearch_button_Click(object sender, EventArgs e)
         {
-            foreach (var item in FileSearcherAsync.FoundFiles)
+            CollectSearchedData();
+            SwitchFormComponentsToDefault();
+
+            var folderPath = FilterOptions.FolderPath;
+            var searchPattern = FilterOptions.FileName + FilterOptions.FileExtension;
+            var minSize = FilterOptions.FileMinSize;
+            var maxSize = FilterOptions.FileMaxSize;
+
+            Task.Factory.StartNew(() => fileSearcherIEnumerable.StartFileSearch(
+                folderPath,
+                searchPattern,
+                minSize,
+                maxSize,
+                listView,
+                searchCounter_label,
+                FileSearcherIEnumerable.CurrentFileToListView))
+
+            .ContinueWith(x =>
             {
-                var fileName = Path.GetFileName(item);
-                var folderName = Path.GetFullPath(item);
-                var fileType = Path.GetExtension(item);
-                var fileSize = (new FileInfo(item).Length / 1024);
-                var fileSizetoKB = (fileSize < 1) ? 1.ToString() : fileSize.ToString();
+                searchDone_label.Invoke(new Action(() => searchDone_label.Text = "Поиск завершен!"));
 
-                if (fileSize >= FilterOptions.FileMinSize && fileSize <= FilterOptions.FileMaxSize)
-                {
-                    ListViewItem lvi = new ListViewItem(fileName);
+                startSearch_button.Invoke(new Action(() => startSearch_button.Enabled = true));
 
-                    lvi.SubItems.Add(folderName);
-                    lvi.SubItems.Add(fileType);
-                    lvi.SubItems.Add(fileSizetoKB);
-                    listView.Items.Add(lvi);
-                }
-            }
-        }
-
-        /*******************************************************************************/
-        private void showResult_button_Click(object sender, EventArgs e)
-        {
-            FillingListView();
+                listView.Invoke(new Action(() => listView.HeaderStyle = ColumnHeaderStyle.Clickable));
+            });
 
             FilterOptions.SetSizesToDefault();
-
-            var itemsInListView = listView.Items.Count.ToString();
-
-            searchCounter_label.Text = itemsInListView;
         }
 
         /*******************************************************************************/
@@ -150,54 +124,33 @@ namespace FileManager_DotNet
         }
 
         /*******************************************************************************/
-        private void nameSearch_checkBox_CheckedChanged(object sender, EventArgs e)
+        private void listView_ItemActivate(object sender, EventArgs e)
         {
-            enterName_label.Enabled = !enterName_label.Enabled;
-            enterName_textBox.Enabled = !enterName_textBox.Enabled;
+            string currentFile = listView.SelectedItems[0].SubItems[1].Text;
+
+            if (File.Exists(currentFile))
+            {
+                try
+                {
+                    Process.Start(currentFile);
+                }
+                catch (Exception) { }
+            }
         }
 
         /*******************************************************************************/
-        private void typeSearch_checkBox_CheckedChanged(object sender, EventArgs e)
+        public void SwitchFormComponentsToDefault()
         {
-            enterExtension_label.Enabled = !enterExtension_label.Enabled;
-            enterExtension_textBox.Enabled = !enterExtension_textBox.Enabled;
-        }
-
-        /*******************************************************************************/
-        private void sizeSearch_checkBox_CheckedChanged(object sender, EventArgs e)
-        {
-            enterSize_label.Enabled = !enterSize_label.Enabled;
-            minSize_label.Enabled = !minSize_label.Enabled;
-            maxSize_label.Enabled = !maxSize_label.Enabled;
-            minSize_textBox.Enabled = !minSize_textBox.Enabled;
-            maxSize_textBox.Enabled = !maxSize_textBox.Enabled;
-            sizeKb_label1.Enabled = !sizeKb_label1.Enabled;
-            sizeKb_label2.Enabled = !sizeKb_label2.Enabled;
-        }
-
-        /*******************************************************************************/
-        public void SwitchFiltersToDefault()
-        {
-            nameSearch_checkBox.Checked = false;
-            typeSearch_checkBox.Checked = false;
-            sizeSearch_checkBox.Checked = false;
-
-            enterName_label.Enabled = false;
-            enterName_textBox.Enabled = false;
-            enterExtension_label.Enabled = false;
-            enterExtension_textBox.Enabled = false;
-            enterSize_label.Enabled = false;
-            minSize_label.Enabled = false;
-            maxSize_label.Enabled = false;
-            minSize_textBox.Enabled = false;
-            maxSize_textBox.Enabled = false;
-            sizeKb_label1.Enabled = false;
-            sizeKb_label2.Enabled = false;
+            listView.Items.Clear();
+            listView.HeaderStyle = ColumnHeaderStyle.Nonclickable;
 
             enterName_textBox.Text = string.Empty;
             enterExtension_textBox.Text = string.Empty;
             minSize_textBox.Text = string.Empty;
             maxSize_textBox.Text = string.Empty;
+
+            searchDone_label.Text = string.Empty;
+            startSearch_button.Enabled = false;
         }
     }
 }
