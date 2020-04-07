@@ -55,6 +55,7 @@
             this.chosenFolder_label = new System.Windows.Forms.Label();
             this.chosenFolder_textBox = new System.Windows.Forms.TextBox();
             this.searchDone_label = new System.Windows.Forms.Label();
+            this.cancelSearch_button = new System.Windows.Forms.Button();
             this.listView = new FileManager_DotNet.ListViewNoFlickering();
             this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -333,6 +334,17 @@
             this.searchDone_label.TabIndex = 13;
             this.searchDone_label.Text = "_______";
             // 
+            // cancelSearch_button
+            // 
+            this.cancelSearch_button.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.cancelSearch_button.Location = new System.Drawing.Point(483, 5);
+            this.cancelSearch_button.Name = "cancelSearch_button";
+            this.cancelSearch_button.Size = new System.Drawing.Size(187, 31);
+            this.cancelSearch_button.TabIndex = 14;
+            this.cancelSearch_button.Text = "Отмена";
+            this.cancelSearch_button.UseVisualStyleBackColor = true;
+            this.cancelSearch_button.Click += new System.EventHandler(this.cancelSearch_button_Click);
+            // 
             // listView
             // 
             this.listView.BackColor = System.Drawing.SystemColors.ControlLight;
@@ -380,6 +392,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1189, 604);
+            this.Controls.Add(this.cancelSearch_button);
             this.Controls.Add(this.searchDone_label);
             this.Controls.Add(this.chosenFolder_textBox);
             this.Controls.Add(this.chosenFolder_label);
@@ -443,6 +456,7 @@
         private System.Windows.Forms.TextBox chosenFolder_textBox;
         private ListViewNoFlickering listView;
         private System.Windows.Forms.Label searchDone_label;
+        private System.Windows.Forms.Button cancelSearch_button;
     }
 }
 
