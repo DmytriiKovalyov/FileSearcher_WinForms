@@ -46,10 +46,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CustomControls\FolderPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="CustomControls\FolderPanel.Designer.cs">
+      <DependentUpon>FolderPanel.cs</DependentUpon>
+    </Compile>
     <Compile Include="FileSearcherAsync.cs" />
     <Compile Include="FIleSearcherIEnumerable.cs" />
     <Compile Include="FilterOptions.cs" />
-    <Compile Include="ListViewNoFlickering.cs">
+    <Compile Include="CustomControls\ListViewNoFlickering.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="ListViewSorter.cs" />
@@ -61,6 +67,9 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="CustomControls\FolderPanel.resx">
+      <DependentUpon>FolderPanel.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
     </EmbeddedResource>

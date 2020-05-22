@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
 using System.IO;
-using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -10,7 +9,6 @@ namespace FileManager_DotNet
     /*******************************************************************************/
     public partial class FileSearchForm : Form
     {
-        private CancellationTokenSource cancellationTokenSource;
         TaskScheduler uiScheduler;
         FileSearcherIEnumerable fileSearcherIEnumerable;
 
@@ -22,32 +20,7 @@ namespace FileManager_DotNet
             uiScheduler = TaskScheduler.FromCurrentSynchronizationContext();
             fileSearcherIEnumerable = new FileSearcherIEnumerable(uiScheduler);
 
-            webBrowser.Url = new Uri(@"C:/");
-
             listView.ColumnClick += new ColumnClickEventHandler(ColumnClick);
-        }
-
-        /*******************************************************************************/
-        private void choosePath_button_Click(object sender, EventArgs e)
-        {
-            FolderBrowserDialog folderBrowserDialog = new FolderBrowserDialog() { Description = "Выберите путь..." };
-
-            if (folderBrowserDialog.ShowDialog() == DialogResult.OK)
-            {
-                FilterOptions.FolderPath = folderBrowserDialog.SelectedPath;
-
-                webBrowser.Url = new Uri(FilterOptions.FolderPath);
-
-                chosenFolder_textBox.Text = folderBrowserDialog.SelectedPath;
-            }
-        }
-
-        /*******************************************************************************/
-        private void webBrowser_Navigated(object sender, WebBrowserNavigatedEventArgs e)
-        {
-            chosenFolder_textBox.Text = webBrowser.Url.LocalPath.ToString();
-
-            FilterOptions.FolderPath = chosenFolder_textBox.Text;
         }
 
         /*******************************************************************************/
@@ -85,12 +58,6 @@ namespace FileManager_DotNet
             CollectSearchedData();
             SwitchFormComponentsToDefault();
 
-            startSearch_button.Enabled = false;
-            cancelSearch_button.Enabled = true;
-
-            cancellationTokenSource = new CancellationTokenSource();
-            CancellationToken cancellationToken = cancellationTokenSource.Token;
-
             var folderPath = FilterOptions.FolderPath;
             var searchPattern = FilterOptions.FileName + FilterOptions.FileExtension;
             var minSize = FilterOptions.FileMinSize;
@@ -103,8 +70,7 @@ namespace FileManager_DotNet
                 maxSize,
                 listView,
                 searchCounter_label,
-                FileSearcherIEnumerable.CurrentFileToListView,
-                cancellationToken), cancellationToken)
+                FileSearcherIEnumerable.CurrentFileToListView))
 
             .ContinueWith(x =>
             {
@@ -116,28 +82,6 @@ namespace FileManager_DotNet
             });
 
             FilterOptions.SetSizesToDefault();
-        }
-
-        /*******************************************************************************/
-        private void cancelSearch_button_Click(object sender, EventArgs e)
-        {
-            cancellationTokenSource.Cancel();
-
-            SwitchFormComponentsToDefault();
-        }
-
-        /*******************************************************************************/
-        private void goBack_button_Click(object sender, EventArgs e)
-        {
-            if (webBrowser.CanGoBack)
-                webBrowser.GoBack();
-        }
-
-        /*******************************************************************************/
-        private void goForward_button_Click(object sender, EventArgs e)
-        {
-            if (webBrowser.CanGoForward)
-                webBrowser.GoForward();
         }
 
         /*******************************************************************************/
@@ -166,10 +110,8 @@ namespace FileManager_DotNet
             minSize_textBox.Text = string.Empty;
             maxSize_textBox.Text = string.Empty;
 
-            startSearch_button.Enabled = true;
-            cancelSearch_button.Enabled = false;
             searchDone_label.Text = string.Empty;
-            searchCounter_label.Text = "0";
+            startSearch_button.Enabled = false;
         }
     }
 }

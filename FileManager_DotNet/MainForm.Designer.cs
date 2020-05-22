@@ -28,12 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.choosePath_button = new System.Windows.Forms.Button();
-            this.webBrowser = new System.Windows.Forms.WebBrowser();
             this.filesFound_label = new System.Windows.Forms.Label();
             this.startSearch_button = new System.Windows.Forms.Button();
-            this.goBack_button = new System.Windows.Forms.Button();
-            this.goForward_button = new System.Windows.Forms.Button();
             this.dogGif_pictureBox = new System.Windows.Forms.PictureBox();
             this.searchGroupbox = new System.Windows.Forms.GroupBox();
             this.fileName_groupBox = new System.Windows.Forms.GroupBox();
@@ -52,41 +48,19 @@
             this.enterSize_label = new System.Windows.Forms.Label();
             this.pickFilters_label = new System.Windows.Forms.Label();
             this.searchCounter_label = new System.Windows.Forms.Label();
-            this.chosenFolder_label = new System.Windows.Forms.Label();
-            this.chosenFolder_textBox = new System.Windows.Forms.TextBox();
             this.searchDone_label = new System.Windows.Forms.Label();
-            this.cancelSearch_button = new System.Windows.Forms.Button();
             this.listView = new FileManager_DotNet.ListViewNoFlickering();
             this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader4 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.folderPanel1 = new FileManager_DotNet.CustomControls.FolderPanel();
             ((System.ComponentModel.ISupportInitialize)(this.dogGif_pictureBox)).BeginInit();
             this.searchGroupbox.SuspendLayout();
             this.fileName_groupBox.SuspendLayout();
             this.fileType_groupBox.SuspendLayout();
             this.fileSize_groupBox.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // choosePath_button
-            // 
-            this.choosePath_button.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.choosePath_button.Location = new System.Drawing.Point(137, 5);
-            this.choosePath_button.Name = "choosePath_button";
-            this.choosePath_button.Size = new System.Drawing.Size(115, 31);
-            this.choosePath_button.TabIndex = 0;
-            this.choosePath_button.Text = "Выбрать путь";
-            this.choosePath_button.UseVisualStyleBackColor = true;
-            this.choosePath_button.Click += new System.EventHandler(this.choosePath_button_Click);
-            // 
-            // webBrowser
-            // 
-            this.webBrowser.Location = new System.Drawing.Point(13, 42);
-            this.webBrowser.MinimumSize = new System.Drawing.Size(20, 20);
-            this.webBrowser.Name = "webBrowser";
-            this.webBrowser.Size = new System.Drawing.Size(271, 486);
-            this.webBrowser.TabIndex = 1;
-            this.webBrowser.Navigated += new System.Windows.Forms.WebBrowserNavigatedEventHandler(this.webBrowser_Navigated);
             // 
             // filesFound_label
             // 
@@ -108,28 +82,6 @@
             this.startSearch_button.Text = "Начать поиск";
             this.startSearch_button.UseVisualStyleBackColor = true;
             this.startSearch_button.Click += new System.EventHandler(this.startSearch_button_Click);
-            // 
-            // goBack_button
-            // 
-            this.goBack_button.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.goBack_button.Location = new System.Drawing.Point(14, 5);
-            this.goBack_button.Name = "goBack_button";
-            this.goBack_button.Size = new System.Drawing.Size(57, 31);
-            this.goBack_button.TabIndex = 5;
-            this.goBack_button.Text = "<<";
-            this.goBack_button.UseVisualStyleBackColor = true;
-            this.goBack_button.Click += new System.EventHandler(this.goBack_button_Click);
-            // 
-            // goForward_button
-            // 
-            this.goForward_button.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.goForward_button.Location = new System.Drawing.Point(74, 5);
-            this.goForward_button.Name = "goForward_button";
-            this.goForward_button.Size = new System.Drawing.Size(57, 31);
-            this.goForward_button.TabIndex = 6;
-            this.goForward_button.Text = ">>";
-            this.goForward_button.UseVisualStyleBackColor = true;
-            this.goForward_button.Click += new System.EventHandler(this.goForward_button_Click);
             // 
             // dogGif_pictureBox
             // 
@@ -304,26 +256,6 @@
             this.searchCounter_label.TabIndex = 9;
             this.searchCounter_label.Text = "0";
             // 
-            // chosenFolder_label
-            // 
-            this.chosenFolder_label.AutoSize = true;
-            this.chosenFolder_label.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.chosenFolder_label.Location = new System.Drawing.Point(71, 531);
-            this.chosenFolder_label.Name = "chosenFolder_label";
-            this.chosenFolder_label.Size = new System.Drawing.Size(130, 17);
-            this.chosenFolder_label.TabIndex = 11;
-            this.chosenFolder_label.Text = "Выбранная папка:";
-            // 
-            // chosenFolder_textBox
-            // 
-            this.chosenFolder_textBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.chosenFolder_textBox.Location = new System.Drawing.Point(14, 551);
-            this.chosenFolder_textBox.Multiline = true;
-            this.chosenFolder_textBox.Name = "chosenFolder_textBox";
-            this.chosenFolder_textBox.ReadOnly = true;
-            this.chosenFolder_textBox.Size = new System.Drawing.Size(270, 41);
-            this.chosenFolder_textBox.TabIndex = 12;
-            // 
             // searchDone_label
             // 
             this.searchDone_label.AutoSize = true;
@@ -333,17 +265,6 @@
             this.searchDone_label.Size = new System.Drawing.Size(64, 17);
             this.searchDone_label.TabIndex = 13;
             this.searchDone_label.Text = "_______";
-            // 
-            // cancelSearch_button
-            // 
-            this.cancelSearch_button.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.cancelSearch_button.Location = new System.Drawing.Point(483, 5);
-            this.cancelSearch_button.Name = "cancelSearch_button";
-            this.cancelSearch_button.Size = new System.Drawing.Size(187, 31);
-            this.cancelSearch_button.TabIndex = 14;
-            this.cancelSearch_button.Text = "Отмена";
-            this.cancelSearch_button.UseVisualStyleBackColor = true;
-            this.cancelSearch_button.Click += new System.EventHandler(this.cancelSearch_button_Click);
             // 
             // listView
             // 
@@ -387,25 +308,26 @@
             this.columnHeader4.Text = "Размер";
             this.columnHeader4.Width = 130;
             // 
+            // folderPanel1
+            // 
+            this.folderPanel1.Location = new System.Drawing.Point(0, 0);
+            this.folderPanel1.Name = "folderPanel1";
+            this.folderPanel1.Size = new System.Drawing.Size(279, 598);
+            this.folderPanel1.TabIndex = 14;
+            // 
             // FileSearchForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1189, 604);
-            this.Controls.Add(this.cancelSearch_button);
+            this.Controls.Add(this.folderPanel1);
             this.Controls.Add(this.searchDone_label);
-            this.Controls.Add(this.chosenFolder_textBox);
-            this.Controls.Add(this.chosenFolder_label);
             this.Controls.Add(this.searchCounter_label);
             this.Controls.Add(this.searchGroupbox);
             this.Controls.Add(this.dogGif_pictureBox);
-            this.Controls.Add(this.goForward_button);
-            this.Controls.Add(this.goBack_button);
             this.Controls.Add(this.startSearch_button);
             this.Controls.Add(this.filesFound_label);
             this.Controls.Add(this.listView);
-            this.Controls.Add(this.webBrowser);
-            this.Controls.Add(this.choosePath_button);
             this.Name = "FileSearchForm";
             this.Text = "FileSearch";
             ((System.ComponentModel.ISupportInitialize)(this.dogGif_pictureBox)).EndInit();
@@ -423,17 +345,12 @@
         }
 
         #endregion
-
-        private System.Windows.Forms.Button choosePath_button;
-        private System.Windows.Forms.WebBrowser webBrowser;
         private System.Windows.Forms.Label filesFound_label;
         private System.Windows.Forms.Button startSearch_button;
         private System.Windows.Forms.ColumnHeader columnHeader1;
         private System.Windows.Forms.ColumnHeader columnHeader2;
         private System.Windows.Forms.ColumnHeader columnHeader3;
         private System.Windows.Forms.ColumnHeader columnHeader4;
-        private System.Windows.Forms.Button goBack_button;
-        private System.Windows.Forms.Button goForward_button;
         private System.Windows.Forms.PictureBox dogGif_pictureBox;
         private System.Windows.Forms.GroupBox searchGroupbox;
         private System.Windows.Forms.Label pickFilters_label;
@@ -452,11 +369,9 @@
         private System.Windows.Forms.Label minSize_label;
         private System.Windows.Forms.TextBox maxSize_textBox;
         private System.Windows.Forms.TextBox minSize_textBox;
-        private System.Windows.Forms.Label chosenFolder_label;
-        private System.Windows.Forms.TextBox chosenFolder_textBox;
         private ListViewNoFlickering listView;
         private System.Windows.Forms.Label searchDone_label;
-        private System.Windows.Forms.Button cancelSearch_button;
+        private CustomControls.FolderPanel folderPanel1;
     }
 }
 
