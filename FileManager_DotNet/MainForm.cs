@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Diagnostics;
 using System.IO;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -9,6 +10,7 @@ namespace FileManager_DotNet
     /*******************************************************************************/
     public partial class FileSearchForm : Form
     {
+        private CancellationTokenSource cancellationTokenSource;
         TaskScheduler uiScheduler;
         FileSearcherIEnumerable fileSearcherIEnumerable;
 
@@ -58,6 +60,12 @@ namespace FileManager_DotNet
             CollectSearchedData();
             SwitchFormComponentsToDefault();
 
+            startSearch_button.Enabled = false;
+            cancelSearch_button.Enabled = true;
+
+            cancellationTokenSource = new CancellationTokenSource();
+            CancellationToken cancellationToken = cancellationTokenSource.Token;
+
             var folderPath = FilterOptions.FolderPath;
             var searchPattern = FilterOptions.FileName + FilterOptions.FileExtension;
             var minSize = FilterOptions.FileMinSize;
@@ -70,7 +78,8 @@ namespace FileManager_DotNet
                 maxSize,
                 listView,
                 searchCounter_label,
-                FileSearcherIEnumerable.CurrentFileToListView))
+                FileSearcherIEnumerable.CurrentFileToListView,
+                cancellationToken), cancellationToken)
 
             .ContinueWith(x =>
             {
@@ -82,6 +91,14 @@ namespace FileManager_DotNet
             });
 
             FilterOptions.SetSizesToDefault();
+        }
+
+        /*******************************************************************************/
+        private void cancelSearch_button_Click(object sender, EventArgs e)
+        {
+            cancellationTokenSource.Cancel();
+
+            SwitchFormComponentsToDefault();
         }
 
         /*******************************************************************************/
@@ -110,8 +127,10 @@ namespace FileManager_DotNet
             minSize_textBox.Text = string.Empty;
             maxSize_textBox.Text = string.Empty;
 
+            startSearch_button.Enabled = true;
+            cancelSearch_button.Enabled = false;
             searchDone_label.Text = string.Empty;
-            startSearch_button.Enabled = false;
+            searchCounter_label.Text = "0";
         }
     }
 }

@@ -49,6 +49,7 @@
             this.pickFilters_label = new System.Windows.Forms.Label();
             this.searchCounter_label = new System.Windows.Forms.Label();
             this.searchDone_label = new System.Windows.Forms.Label();
+            this.cancelSearch_button = new System.Windows.Forms.Button();
             this.listView = new FileManager_DotNet.ListViewNoFlickering();
             this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -266,6 +267,17 @@
             this.searchDone_label.TabIndex = 13;
             this.searchDone_label.Text = "_______";
             // 
+            // cancelSearch_button
+            // 
+            this.cancelSearch_button.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.cancelSearch_button.Location = new System.Drawing.Point(483, 5);
+            this.cancelSearch_button.Name = "cancelSearch_button";
+            this.cancelSearch_button.Size = new System.Drawing.Size(187, 31);
+            this.cancelSearch_button.TabIndex = 14;
+            this.cancelSearch_button.Text = "Отмена";
+            this.cancelSearch_button.UseVisualStyleBackColor = true;
+            this.cancelSearch_button.Click += new System.EventHandler(this.cancelSearch_button_Click);
+            // 
             // listView
             // 
             this.listView.BackColor = System.Drawing.SystemColors.ControlLight;
@@ -312,8 +324,8 @@
             // 
             this.folderPanel1.Location = new System.Drawing.Point(0, 0);
             this.folderPanel1.Name = "folderPanel1";
-            this.folderPanel1.Size = new System.Drawing.Size(279, 598);
-            this.folderPanel1.TabIndex = 14;
+            this.folderPanel1.Size = new System.Drawing.Size(278, 593);
+            this.folderPanel1.TabIndex = 15;
             // 
             // FileSearchForm
             // 
@@ -321,6 +333,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1189, 604);
             this.Controls.Add(this.folderPanel1);
+            this.Controls.Add(this.cancelSearch_button);
             this.Controls.Add(this.searchDone_label);
             this.Controls.Add(this.searchCounter_label);
             this.Controls.Add(this.searchGroupbox);
@@ -371,6 +384,7 @@
         private System.Windows.Forms.TextBox minSize_textBox;
         private ListViewNoFlickering listView;
         private System.Windows.Forms.Label searchDone_label;
+        private System.Windows.Forms.Button cancelSearch_button;
         private CustomControls.FolderPanel folderPanel1;
     }
 }

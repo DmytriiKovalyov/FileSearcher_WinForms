@@ -39,7 +39,7 @@
             // chosenFolder_textBox
             // 
             this.chosenFolder_textBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.chosenFolder_textBox.Location = new System.Drawing.Point(4, 551);
+            this.chosenFolder_textBox.Location = new System.Drawing.Point(4, 549);
             this.chosenFolder_textBox.Multiline = true;
             this.chosenFolder_textBox.Name = "chosenFolder_textBox";
             this.chosenFolder_textBox.ReadOnly = true;
@@ -50,7 +50,7 @@
             // 
             this.chosenFolder_label.AutoSize = true;
             this.chosenFolder_label.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.chosenFolder_label.Location = new System.Drawing.Point(61, 531);
+            this.chosenFolder_label.Location = new System.Drawing.Point(61, 529);
             this.chosenFolder_label.Name = "chosenFolder_label";
             this.chosenFolder_label.Size = new System.Drawing.Size(130, 17);
             this.chosenFolder_label.TabIndex = 17;
@@ -59,7 +59,7 @@
             // goForward_button
             // 
             this.goForward_button.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.goForward_button.Location = new System.Drawing.Point(64, 5);
+            this.goForward_button.Location = new System.Drawing.Point(64, 3);
             this.goForward_button.Name = "goForward_button";
             this.goForward_button.Size = new System.Drawing.Size(57, 31);
             this.goForward_button.TabIndex = 16;
@@ -70,7 +70,7 @@
             // goBack_button
             // 
             this.goBack_button.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.goBack_button.Location = new System.Drawing.Point(4, 5);
+            this.goBack_button.Location = new System.Drawing.Point(4, 3);
             this.goBack_button.Name = "goBack_button";
             this.goBack_button.Size = new System.Drawing.Size(57, 31);
             this.goBack_button.TabIndex = 15;
@@ -80,7 +80,7 @@
             // 
             // webBrowser
             // 
-            this.webBrowser.Location = new System.Drawing.Point(3, 42);
+            this.webBrowser.Location = new System.Drawing.Point(3, 40);
             this.webBrowser.MinimumSize = new System.Drawing.Size(20, 20);
             this.webBrowser.Name = "webBrowser";
             this.webBrowser.Size = new System.Drawing.Size(271, 486);
@@ -90,7 +90,7 @@
             // choosePath_button
             // 
             this.choosePath_button.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.choosePath_button.Location = new System.Drawing.Point(127, 5);
+            this.choosePath_button.Location = new System.Drawing.Point(127, 3);
             this.choosePath_button.Name = "choosePath_button";
             this.choosePath_button.Size = new System.Drawing.Size(115, 31);
             this.choosePath_button.TabIndex = 13;
@@ -109,7 +109,7 @@
             this.Controls.Add(this.webBrowser);
             this.Controls.Add(this.choosePath_button);
             this.Name = "FolderPanel";
-            this.Size = new System.Drawing.Size(279, 598);
+            this.Size = new System.Drawing.Size(278, 593);
             this.ResumeLayout(false);
             this.PerformLayout();
 
