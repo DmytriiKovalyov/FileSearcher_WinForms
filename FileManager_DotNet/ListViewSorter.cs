@@ -71,7 +71,7 @@ namespace FileManager_DotNet
             {
                 if (currentColumn == _sortedColumn)
                 {
-                    sortOrder = _sortedColumn.Text.StartsWith(" > ") ?
+                    sortOrder = _sortedColumn.Text.StartsWith(" ▲ ") ?
                         SortOrder.Descending :
                         SortOrder.Ascending;
                 }
@@ -86,8 +86,8 @@ namespace FileManager_DotNet
             _sortedColumn = currentColumn;
 
             _sortedColumn.Text = (sortOrder == SortOrder.Ascending) ?
-                " > " + _sortedColumn.Text :
-                " < " + _sortedColumn.Text;
+                " ▲ " + _sortedColumn.Text :
+                " ▼ " + _sortedColumn.Text;
 
             return sortOrder;
         }

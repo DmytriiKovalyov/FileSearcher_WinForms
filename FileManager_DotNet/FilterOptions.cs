@@ -5,20 +5,21 @@
     {
         public static string FolderPath { get; set; }
 
-        public static string FileName { get; set; }
+        public static string FileName { get; set; } = "*";
 
-        public static string FileExtension { get; set; }
+        public static string FileExtension { get; set; } = ".*";
 
         public static long FileMinSize { get; set; } = 0;
 
         public static long FileMaxSize { get; set; } = long.MaxValue;
+
 
         /*******************************************************************************/
         public static void SetSearchedFileNames(bool check, string file_name)
         {
             FileName = (!check && file_name != string.Empty) ?
                 "*" + file_name + "*" :
-                "";
+                "*";
         }
 
         /*******************************************************************************/

@@ -46,11 +46,23 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CustomControls\FilterPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="CustomControls\FilterPanel.Designer.cs">
+      <DependentUpon>FilterPanel.cs</DependentUpon>
+    </Compile>
     <Compile Include="CustomControls\FolderPanel.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="CustomControls\FolderPanel.Designer.cs">
       <DependentUpon>FolderPanel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CustomControls\SearchPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="CustomControls\SearchPanel.Designer.cs">
+      <DependentUpon>SearchPanel.cs</DependentUpon>
     </Compile>
     <Compile Include="FileSearcherAsync.cs" />
     <Compile Include="FIleSearcherIEnumerable.cs" />
@@ -67,8 +79,14 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="CustomControls\FilterPanel.resx">
+      <DependentUpon>FilterPanel.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="CustomControls\FolderPanel.resx">
       <DependentUpon>FolderPanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CustomControls\SearchPanel.resx">
+      <DependentUpon>SearchPanel.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
