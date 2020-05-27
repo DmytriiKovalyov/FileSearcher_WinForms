@@ -19,32 +19,39 @@ namespace FileManager_DotNet
         }
 
         /*******************************************************************************/
-        public static void CurrentFileToListView(FileInfo file, ListView listView, Label counterLabel, CancellationToken cancellationToken)
+        public static void CurrentFileToListView(FileInfo file, ListView listView, Label counterLabel,
+            CancellationToken cancellationToken)
         {
             try
             {
                 Task.Factory.StartNew(() =>
                 {
-                    var fileName = file.Name;
-                    var folderName = file.FullName;
-                    var fileType = file.Extension;
-                    var fileSize = file.Length / 1024;
-                    var fileSizetoKB = (fileSize < 1) ? 1.ToString() : fileSize.ToString();
-
-                    ListViewItem lvi = new ListViewItem(fileName);
-
-                    lvi.SubItems.Add(folderName);
-                    lvi.SubItems.Add(fileType);
-                    lvi.SubItems.Add(fileSizetoKB);
-                    listView.Items.Add(lvi);
-
-                    counterLabel.Text = listView.Items.Count.ToString();
+                    ListViewAddItem(file, listView, counterLabel);
 
                     cancellationToken.ThrowIfCancellationRequested();
 
                 }, cancellationToken, TaskCreationOptions.None, uiScheduler);
             }
             catch(OperationCanceledException) { }
+        }
+
+        /*******************************************************************************/
+        public static void ListViewAddItem(FileInfo file, ListView listView, Label counterLabel)
+        {
+            var fileName = file.Name;
+            var folderName = file.FullName;
+            var fileType = file.Extension;
+            var fileSize = file.Length / 1024;
+            var fileSizetoKB = (fileSize < 1) ? 1.ToString() : fileSize.ToString();
+
+            ListViewItem lvi = new ListViewItem(fileName);
+
+            lvi.SubItems.Add(folderName);
+            lvi.SubItems.Add(fileType);
+            lvi.SubItems.Add(fileSizetoKB);
+            listView.Items.Add(lvi);
+
+            counterLabel.Text = listView.Items.Count.ToString();
         }
 
         /*******************************************************************************/

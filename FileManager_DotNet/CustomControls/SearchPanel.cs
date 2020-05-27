@@ -7,17 +7,20 @@ using System.Diagnostics;
 
 namespace FileManager_DotNet.CustomControls
 {
+    /*******************************************************************************/
     public partial class SearchPanel : UserControl
     {
         private CancellationTokenSource cancellationTokenSource;
         TaskScheduler uiScheduler;
         FileSearcherIEnumerable fileSearcherIEnumerable;
 
+        /*******************************************************************************/
         public SearchPanel()
         {
             InitializeComponent();
 
             uiScheduler = TaskScheduler.FromCurrentSynchronizationContext();
+
             fileSearcherIEnumerable = new FileSearcherIEnumerable(uiScheduler);
 
             listView.ColumnClick += new ColumnClickEventHandler(ColumnClick);
@@ -64,15 +67,10 @@ namespace FileManager_DotNet.CustomControls
             .ContinueWith(x =>
             {
                 searchDone_label.Invoke(new Action(() => searchDone_label.Text = "Поиск завершен!"));
-
                 startSearch_button.Invoke(new Action(() => startSearch_button.Enabled = true));
-
                 cancelSearch_button.Invoke(new Action(() => cancelSearch_button.Enabled = false));
-
                 listView.Invoke(new Action(() => listView.HeaderStyle = ColumnHeaderStyle.Clickable));
             });
-
-            FilterOptions.SetSizesToDefault();
         }
 
         /*******************************************************************************/
@@ -106,6 +104,7 @@ namespace FileManager_DotNet.CustomControls
 
             startSearch_button.Enabled = true;
             cancelSearch_button.Enabled = false;
+
             searchDone_label.Text = string.Empty;
             searchCounter_label.Text = "0";
         }

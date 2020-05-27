@@ -35,16 +35,12 @@
         {
             if (!check && file2_size != string.Empty)
             {
-                long max_size;
-
-                if (long.TryParse(file2_size, out max_size) && max_size > 0)
+                if (long.TryParse(file2_size, out long max_size) && max_size > 0)
                 {
                     FileMaxSize = max_size;
                 }
 
-                long min_size;
-
-                if (long.TryParse(file1_size, out min_size) && min_size <= max_size)
+                if (long.TryParse(file1_size, out long min_size) && min_size <= max_size)
                 {
                     FileMinSize = min_size;
                 }

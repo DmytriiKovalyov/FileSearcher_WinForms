@@ -64,7 +64,6 @@
     <Compile Include="CustomControls\SearchPanel.Designer.cs">
       <DependentUpon>SearchPanel.cs</DependentUpon>
     </Compile>
-    <Compile Include="FileSearcherAsync.cs" />
     <Compile Include="FIleSearcherIEnumerable.cs" />
     <Compile Include="FilterOptions.cs" />
     <Compile Include="CustomControls\ListViewNoFlickering.cs">

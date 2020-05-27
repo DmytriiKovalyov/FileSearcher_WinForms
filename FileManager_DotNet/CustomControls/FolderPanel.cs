@@ -10,8 +10,10 @@ using System.Windows.Forms;
 
 namespace FileManager_DotNet.CustomControls
 {
+    /*******************************************************************************/
     public partial class FolderPanel : UserControl
     {
+        /*******************************************************************************/
         public FolderPanel()
         {
             InitializeComponent();
