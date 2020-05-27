@@ -12,7 +12,7 @@ namespace FileManager_DotNet.CustomControls
     {
         private CancellationTokenSource cancellationTokenSource;
         TaskScheduler uiScheduler;
-        FileSearcherIEnumerable fileSearcherIEnumerable;
+        FileSearcher fileSearcher;
 
         /*******************************************************************************/
         public SearchPanel()
@@ -21,7 +21,7 @@ namespace FileManager_DotNet.CustomControls
 
             uiScheduler = TaskScheduler.FromCurrentSynchronizationContext();
 
-            fileSearcherIEnumerable = new FileSearcherIEnumerable(uiScheduler);
+            fileSearcher = new FileSearcher(uiScheduler);
 
             listView.ColumnClick += new ColumnClickEventHandler(ColumnClick);
         }
@@ -54,23 +54,23 @@ namespace FileManager_DotNet.CustomControls
             var minSize = FilterOptions.FileMinSize;
             var maxSize = FilterOptions.FileMaxSize;
 
-            Task.Factory.StartNew(() => fileSearcherIEnumerable.StartFileSearch(
+            Task.Factory.StartNew(() => fileSearcher.StartFileSearch(
                 folderPath,
                 searchPattern,
                 minSize,
                 maxSize,
                 listView,
                 searchCounter_label,
-                FileSearcherIEnumerable.CurrentFileToListView,
+                FileSearcher.CurrentFileToListView,
                 cancellationToken), cancellationToken)
 
             .ContinueWith(x =>
             {
-                searchDone_label.Invoke(new Action(() => searchDone_label.Text = "Поиск завершен!"));
-                startSearch_button.Invoke(new Action(() => startSearch_button.Enabled = true));
-                cancelSearch_button.Invoke(new Action(() => cancelSearch_button.Enabled = false));
-                listView.Invoke(new Action(() => listView.HeaderStyle = ColumnHeaderStyle.Clickable));
-            });
+                searchDone_label.Text = "Поиск завершен!";
+                startSearch_button.Enabled = true;
+                cancelSearch_button.Enabled = false;
+                listView.HeaderStyle = ColumnHeaderStyle.Clickable;
+            }, TaskScheduler.FromCurrentSynchronizationContext());
         }
 
         /*******************************************************************************/
