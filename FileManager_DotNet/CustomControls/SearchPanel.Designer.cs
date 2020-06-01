@@ -48,7 +48,7 @@
             this.cancelSearch_button.Location = new System.Drawing.Point(198, 6);
             this.cancelSearch_button.Name = "cancelSearch_button";
             this.cancelSearch_button.Size = new System.Drawing.Size(187, 31);
-            this.cancelSearch_button.TabIndex = 20;
+            this.cancelSearch_button.TabIndex = 10;
             this.cancelSearch_button.Text = "Отмена";
             this.cancelSearch_button.UseVisualStyleBackColor = true;
             this.cancelSearch_button.Click += new System.EventHandler(this.cancelSearch_button_Click);
@@ -110,6 +110,7 @@
             this.listView.Name = "listView";
             this.listView.Size = new System.Drawing.Size(694, 550);
             this.listView.TabIndex = 15;
+            this.listView.TabStop = false;
             this.listView.TileSize = new System.Drawing.Size(2, 2);
             this.listView.UseCompatibleStateImageBehavior = false;
             this.listView.View = System.Windows.Forms.View.Details;
@@ -141,7 +142,7 @@
             this.startSearch_button.Location = new System.Drawing.Point(5, 6);
             this.startSearch_button.Name = "startSearch_button";
             this.startSearch_button.Size = new System.Drawing.Size(187, 31);
-            this.startSearch_button.TabIndex = 21;
+            this.startSearch_button.TabIndex = 9;
             this.startSearch_button.Text = "Начать поиск";
             this.startSearch_button.UseVisualStyleBackColor = true;
             this.startSearch_button.Click += new System.EventHandler(this.startSearch_button_Click);

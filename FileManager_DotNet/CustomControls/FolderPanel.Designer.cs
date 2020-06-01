@@ -45,6 +45,7 @@
             this.chosenFolder_textBox.ReadOnly = true;
             this.chosenFolder_textBox.Size = new System.Drawing.Size(270, 41);
             this.chosenFolder_textBox.TabIndex = 18;
+            this.chosenFolder_textBox.TabStop = false;
             // 
             // chosenFolder_label
             // 
@@ -62,7 +63,7 @@
             this.goForward_button.Location = new System.Drawing.Point(64, 3);
             this.goForward_button.Name = "goForward_button";
             this.goForward_button.Size = new System.Drawing.Size(57, 31);
-            this.goForward_button.TabIndex = 16;
+            this.goForward_button.TabIndex = 2;
             this.goForward_button.Text = ">>";
             this.goForward_button.UseVisualStyleBackColor = true;
             this.goForward_button.Click += new System.EventHandler(this.goForward_button_Click);
@@ -73,7 +74,7 @@
             this.goBack_button.Location = new System.Drawing.Point(4, 3);
             this.goBack_button.Name = "goBack_button";
             this.goBack_button.Size = new System.Drawing.Size(57, 31);
-            this.goBack_button.TabIndex = 15;
+            this.goBack_button.TabIndex = 1;
             this.goBack_button.Text = "<<";
             this.goBack_button.UseVisualStyleBackColor = true;
             this.goBack_button.Click += new System.EventHandler(this.goBack_button_Click);
@@ -84,7 +85,8 @@
             this.webBrowser.MinimumSize = new System.Drawing.Size(20, 20);
             this.webBrowser.Name = "webBrowser";
             this.webBrowser.Size = new System.Drawing.Size(271, 486);
-            this.webBrowser.TabIndex = 14;
+            this.webBrowser.TabIndex = 4;
+            this.webBrowser.TabStop = false;
             this.webBrowser.Navigated += new System.Windows.Forms.WebBrowserNavigatedEventHandler(this.webBrowser_Navigated);
             // 
             // choosePath_button
@@ -93,7 +95,7 @@
             this.choosePath_button.Location = new System.Drawing.Point(127, 3);
             this.choosePath_button.Name = "choosePath_button";
             this.choosePath_button.Size = new System.Drawing.Size(115, 31);
-            this.choosePath_button.TabIndex = 13;
+            this.choosePath_button.TabIndex = 3;
             this.choosePath_button.Text = "Выбрать путь";
             this.choosePath_button.UseVisualStyleBackColor = true;
             this.choosePath_button.Click += new System.EventHandler(this.choosePath_button_Click);

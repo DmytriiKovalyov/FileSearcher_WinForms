@@ -28,31 +28,31 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.filterPanel1 = new FileManager_DotNet.CustomControls.FilterPanel();
             this.searchPanel1 = new FileManager_DotNet.CustomControls.SearchPanel();
             this.folderPanel1 = new FileManager_DotNet.CustomControls.FolderPanel();
-            this.filterPanel1 = new FileManager_DotNet.CustomControls.FilterPanel();
             this.SuspendLayout();
-            // 
-            // searchPanel1
-            // 
-            this.searchPanel1.Location = new System.Drawing.Point(290, 4);
-            this.searchPanel1.Name = "searchPanel1";
-            this.searchPanel1.Size = new System.Drawing.Size(895, 596);
-            this.searchPanel1.TabIndex = 7;
-            // 
-            // folderPanel1
-            // 
-            this.folderPanel1.Location = new System.Drawing.Point(6, 6);
-            this.folderPanel1.Name = "folderPanel1";
-            this.folderPanel1.Size = new System.Drawing.Size(278, 593);
-            this.folderPanel1.TabIndex = 15;
             // 
             // filterPanel1
             // 
             this.filterPanel1.Location = new System.Drawing.Point(293, 49);
             this.filterPanel1.Name = "filterPanel1";
             this.filterPanel1.Size = new System.Drawing.Size(190, 369);
-            this.filterPanel1.TabIndex = 16;
+            this.filterPanel1.TabIndex = 2;
+            // 
+            // searchPanel1
+            // 
+            this.searchPanel1.Location = new System.Drawing.Point(290, 4);
+            this.searchPanel1.Name = "searchPanel1";
+            this.searchPanel1.Size = new System.Drawing.Size(895, 596);
+            this.searchPanel1.TabIndex = 3;
+            // 
+            // folderPanel1
+            // 
+            this.folderPanel1.Location = new System.Drawing.Point(6, 6);
+            this.folderPanel1.Name = "folderPanel1";
+            this.folderPanel1.Size = new System.Drawing.Size(278, 593);
+            this.folderPanel1.TabIndex = 1;
             // 
             // FileSearchForm
             // 

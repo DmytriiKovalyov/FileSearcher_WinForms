@@ -78,7 +78,7 @@
             this.enterName_textBox.Multiline = true;
             this.enterName_textBox.Name = "enterName_textBox";
             this.enterName_textBox.Size = new System.Drawing.Size(156, 68);
-            this.enterName_textBox.TabIndex = 3;
+            this.enterName_textBox.TabIndex = 1;
             this.enterName_textBox.Leave += new System.EventHandler(this.enterName_textBox_Leave);
             // 
             // enterName_label
@@ -107,7 +107,7 @@
             this.enterExtension_textBox.Multiline = true;
             this.enterExtension_textBox.Name = "enterExtension_textBox";
             this.enterExtension_textBox.Size = new System.Drawing.Size(156, 68);
-            this.enterExtension_textBox.TabIndex = 4;
+            this.enterExtension_textBox.TabIndex = 2;
             this.enterExtension_textBox.Leave += new System.EventHandler(this.enterExtension_textBox_Leave);
             // 
             // enterExtension_label
@@ -176,7 +176,7 @@
             this.maxSize_textBox.Location = new System.Drawing.Point(38, 78);
             this.maxSize_textBox.Name = "maxSize_textBox";
             this.maxSize_textBox.Size = new System.Drawing.Size(103, 20);
-            this.maxSize_textBox.TabIndex = 6;
+            this.maxSize_textBox.TabIndex = 4;
             this.maxSize_textBox.Leave += new System.EventHandler(this.maxSize_textBox_Leave);
             // 
             // minSize_textBox
@@ -184,7 +184,7 @@
             this.minSize_textBox.Location = new System.Drawing.Point(39, 48);
             this.minSize_textBox.Name = "minSize_textBox";
             this.minSize_textBox.Size = new System.Drawing.Size(102, 20);
-            this.minSize_textBox.TabIndex = 5;
+            this.minSize_textBox.TabIndex = 3;
             this.minSize_textBox.Leave += new System.EventHandler(this.minSize_textBox_Leave);
             // 
             // enterSize_label
