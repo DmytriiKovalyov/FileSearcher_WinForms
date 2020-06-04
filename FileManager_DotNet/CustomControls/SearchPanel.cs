@@ -132,6 +132,8 @@ namespace FileManager_DotNet.CustomControls
             cancelSearch_button.Enabled = true;
 
             listView.Items.Clear();
+            listView.Sorting = SortOrder.None;
+            listView.ListViewItemSorter = null;
 
             listView.HeaderStyle = ColumnHeaderStyle.Nonclickable;
 
