@@ -1,27 +1,29 @@
 ﻿using System;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Threading;
 using System.IO;
 using System.Diagnostics;
+using System.Collections.Generic;
+using System.Reactive.Linq;
+using System.Reactive.Concurrency;
 
 namespace FileManager_DotNet.CustomControls
 {
     /*******************************************************************************/
     public partial class SearchPanel : UserControl
     {
-        private CancellationTokenSource cancellationTokenSource;
-        TaskScheduler uiScheduler;
         FileSearcher fileSearcher;
+
+        IObservable<IList<FileInfo>> bufferedResult;
+        IObservable<IList<FileInfo>> bufferedWithTimer;
+        IDisposable subscription;
 
         /*******************************************************************************/
         public SearchPanel()
         {
             InitializeComponent();
 
-            uiScheduler = TaskScheduler.FromCurrentSynchronizationContext();
-
-            fileSearcher = new FileSearcher(uiScheduler);
+            fileSearcher = new FileSearcher();
 
             listView.ColumnClick += new ColumnClickEventHandler(ColumnClick);
         }
@@ -41,44 +43,71 @@ namespace FileManager_DotNet.CustomControls
         /*******************************************************************************/
         private void startSearch_button_Click(object sender, EventArgs e)
         {
-            SwitchFormComponentsToDefault();
-
-            startSearch_button.Enabled = false;
-            cancelSearch_button.Enabled = true;
-
-            cancellationTokenSource = new CancellationTokenSource();
-            CancellationToken cancellationToken = cancellationTokenSource.Token;
+            SwitchFormComponentsBeforeSearch();
 
             var folderPath = FilterOptions.FolderPath;
             var searchPattern = FilterOptions.FileName + FilterOptions.FileExtension;
             var minSize = FilterOptions.FileMinSize;
             var maxSize = FilterOptions.FileMaxSize;
 
-            Task.Factory.StartNew(() => fileSearcher.StartFileSearch(
-                folderPath,
-                searchPattern,
-                minSize,
-                maxSize,
-                listView,
-                searchCounter_label,
-                FileSearcher.CurrentFileToListView,
-                cancellationToken), cancellationToken)
+            bufferedResult =
+                fileSearcher.SearchResults(folderPath, searchPattern, minSize, maxSize)
+                .ToObservable(NewThreadScheduler.Default)
+                .Buffer(300);
 
-            .ContinueWith(x =>
-            {
-                searchDone_label.Text = "Поиск завершен!";
-                startSearch_button.Enabled = true;
-                cancelSearch_button.Enabled = false;
-                listView.HeaderStyle = ColumnHeaderStyle.Clickable;
-            }, TaskScheduler.FromCurrentSynchronizationContext());
+            bufferedWithTimer =
+                Observable.Interval(TimeSpan.FromSeconds(1), NewThreadScheduler.Default)
+                .Zip(bufferedResult, (a, b) => b)
+                .ObserveOn(SynchronizationContext.Current);
+
+            subscription = bufferedWithTimer.Subscribe(OutputResults);
         }
+
+        /***********************************************************/
+        void OutputResults(IEnumerable<FileInfo> results)
+        {
+            listView.BeginUpdate();
+
+            foreach (var file in results)
+            {
+                ListViewAddItem(file);
+            }
+
+            listView.EndUpdate();
+
+            if (listView.Items.Count == FilterOptions.FilesCount)
+            {
+                SwitchFormComponentsAfterSearch();
+            }
+        }
+
+        /*******************************************************************************/
+        private void ListViewAddItem(FileInfo file)
+        {
+            var fileName = file.Name;
+            var folderName = file.FullName;
+            var fileType = file.Extension;
+            var fileSize = file.Length / 1024;
+            var fileSizetoKB = (fileSize < 1) ? 1.ToString() : fileSize.ToString();
+
+            ListViewItem lvi = new ListViewItem(fileName);
+
+            lvi.SubItems.Add(folderName);
+            lvi.SubItems.Add(fileType);
+            lvi.SubItems.Add(fileSizetoKB);
+            listView.Items.Add(lvi);
+
+            searchCounter_label.Text = listView.Items.Count.ToString();
+        }
+
 
         /*******************************************************************************/
         private void cancelSearch_button_Click(object sender, EventArgs e)
         {
-            cancellationTokenSource.Cancel();
+            subscription.Dispose();
+            subscription = null;
 
-            SwitchFormComponentsToDefault();
+            SwitchFormComponentsAfterSearch();
         }
 
         /*******************************************************************************/
@@ -97,16 +126,30 @@ namespace FileManager_DotNet.CustomControls
         }
 
         /*******************************************************************************/
-        public void SwitchFormComponentsToDefault()
+        public void SwitchFormComponentsBeforeSearch()
         {
+            startSearch_button.Enabled = false;
+            cancelSearch_button.Enabled = true;
+
             listView.Items.Clear();
+
             listView.HeaderStyle = ColumnHeaderStyle.Nonclickable;
+
+            searchDone_label.Text = string.Empty;
+            searchCounter_label.Text = "0";
+        }
+
+        /*******************************************************************************/
+        public void SwitchFormComponentsAfterSearch()
+        {
+            searchDone_label.Text = "Поиск завершен";
+
+            listView.HeaderStyle = ColumnHeaderStyle.Clickable; 
 
             startSearch_button.Enabled = true;
             cancelSearch_button.Enabled = false;
 
-            searchDone_label.Text = string.Empty;
-            searchCounter_label.Text = "0";
+            FilterOptions.FilesCount = 0;
         }
     }
 }

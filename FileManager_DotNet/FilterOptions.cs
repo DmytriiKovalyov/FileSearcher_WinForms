@@ -3,6 +3,8 @@
     /*******************************************************************************/
     public static class FilterOptions
     {
+        public static int FilesCount { get; set; }
+
         public static string FolderPath { get; set; }
 
         public static string FileName { get; set; } = "*";

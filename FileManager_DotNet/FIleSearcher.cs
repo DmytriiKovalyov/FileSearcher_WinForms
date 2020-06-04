@@ -1,63 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Threading;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 
 namespace FileManager_DotNet
 {
     /*******************************************************************************/
     public class FileSearcher
     {
-        private static TaskScheduler uiScheduler;
-
-        /*******************************************************************************/
-        public FileSearcher(TaskScheduler UIScheduler)
-        {
-            uiScheduler = UIScheduler;
-        }
-
-        /*******************************************************************************/
-        public static void CurrentFileToListView(FileInfo file, ListView listView, Label counterLabel,
-            CancellationToken cancellationToken)
-        {
-            try
-            {
-                Task.Factory.StartNew(() =>
-                {
-                    ListViewAddItem(file, listView, counterLabel);
-
-                    cancellationToken.ThrowIfCancellationRequested();
-
-                }, cancellationToken, TaskCreationOptions.None, uiScheduler);
-            }
-            catch(OperationCanceledException) { }
-        }
-
-        /*******************************************************************************/
-        public static void ListViewAddItem(FileInfo file, ListView listView, Label counterLabel)
-        {
-            var fileName = file.Name;
-            var folderName = file.FullName;
-            var fileType = file.Extension;
-            var fileSize = file.Length / 1024;
-            var fileSizetoKB = (fileSize < 1) ? 1.ToString() : fileSize.ToString();
-
-            ListViewItem lvi = new ListViewItem(fileName);
-
-            lvi.SubItems.Add(folderName);
-            lvi.SubItems.Add(fileType);
-            lvi.SubItems.Add(fileSizetoKB);
-            listView.Items.Add(lvi);
-
-            counterLabel.Text = listView.Items.Count.ToString();
-        }
-
-        /*******************************************************************************/
-        public void StartFileSearch(
-            string path, string pattern, long minSize, long maxSize, ListView listView, Label counterLabel,
-            Action<FileInfo, ListView, Label, CancellationToken> fileToWrite, CancellationToken cancellationToken)
+        /***********************************************************/
+        public IEnumerable<FileInfo> SearchResults(string path, string pattern, long minSize, long maxSize)
         {
             foreach (DirectoryInfo dir in GetDirectories(new DirectoryInfo(path)))
             {
@@ -67,8 +18,8 @@ namespace FileManager_DotNet
 
                     if (fileSize >= minSize && fileSize <= maxSize)
                     {
-                        Thread.Sleep(1);
-                        fileToWrite(file, listView, counterLabel, cancellationToken);
+                        FilterOptions.FilesCount++;
+                        yield return file;
                     }
                 }
             }
